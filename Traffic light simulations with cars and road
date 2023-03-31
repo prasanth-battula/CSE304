@@ -1,0 +1,196 @@
+#include <GL/glut.h>
+#include <iostream>
+#include <unistd.h>
+
+using namespace std;
+
+int posX1 = 0;
+int posX2 = 650;
+int light1 = 0;
+int light2 = 0;
+int light3 = 0;
+
+void display() {
+glClear(GL_COLOR_BUFFER_BIT);
+glColor3f(1.0f, 1.0f, 0.0f); 
+glRasterPos2f(-1.7, 5.7); 
+for (int i = 0; i < 8; i++) 
+	glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, "11907524"[i]);
+glMatrixMode(GL_MODELVIEW);
+glLoadIdentity();
+
+// Draw a white road
+glColor3f(1.0f, 1.0f, 1.0f);
+glBegin(GL_POLYGON);
+glVertex2f(-1.7f, -0.3f);
+glVertex2f(-1.7f, -0.4f);
+glVertex2f(7.8f, -0.4f);
+glVertex2f(7.8f, -0.3f);
+glEnd();
+
+// Draw car1
+glPushMatrix();
+glTranslatef(0.01f * posX1, 0.0f, 0.0f);
+glColor3f(1.0f, 0.5f, 0.0f);
+glBegin(GL_POLYGON);
+glVertex2f(-0.4f, -0.2f);
+glVertex2f(-0.4f, -0.1f);
+glVertex2f(-0.1f, 0.0f);
+glVertex2f(0.1f, 0.0f);
+glVertex2f(0.5f, -0.1f);
+glVertex2f(0.5f, -0.2f);
+glVertex2f(0.3f, -0.2f);
+glVertex2f(0.2f, -0.1f);
+glVertex2f(-0.1f, -0.1f);
+glVertex2f(-0.2f, -0.2f);
+glEnd();
+
+// Draw wheels
+glColor3f(0.0f, 0.0f, 0.0f);
+glTranslatef(-0.3f, -0.2f, 0.0f);
+glutSolidTorus(0.04f, 0.06f, 10, 20);
+glTranslatef(0.6f, 0.0f, 0.0f);
+glutSolidTorus(0.04f, 0.06f, 10, 20);
+glPopMatrix();
+
+// Draw car2
+glPushMatrix();
+glTranslatef(0.01f * posX2, 0.0f, 0.0f);
+glColor3f(1.0f, 0.5f, 0.0f);
+glBegin(GL_POLYGON);
+glVertex2f(-0.4f, -0.2f);
+glVertex2f(-0.4f, -0.1f);
+glVertex2f(-0.1f, 0.0f);
+glVertex2f(0.1f, 0.0f);
+glVertex2f(0.5f, -0.1f);
+glVertex2f(0.5f, -0.2f);
+glVertex2f(0.3f, -0.2f);
+glVertex2f(0.2f, -0.1f);
+glVertex2f(-0.1f, -0.1f);
+glVertex2f(-0.2f, -0.2f);
+glEnd();
+
+// Draw wheels
+glColor3f(0.0f, 0.0f, 0.0f);
+glTranslatef(-0.3f, -0.2f, 0.0f);
+glutSolidTorus(0.04f, 0.06f, 10, 20);
+glTranslatef(0.6f, 0.0f, 0.0f);
+glutSolidTorus(0.04f, 0.06f, 10, 20);
+glPopMatrix();
+
+// Draw the pole1
+glColor3f(0.0, 0.0, 0.0);
+glPushMatrix();
+glTranslatef(1.4, -0.15, 0.95);
+glRotatef(90, 1, 0, 0);
+GLUquadricObj* pole1 = gluNewQuadric();
+gluCylinder(pole1, 0.02, 0.02, 0.15, 50, 50);
+gluDeleteQuadric(pole1);
+glPopMatrix();
+
+// Draw the red light
+glColor3f(1.0, 0.0, 0.0);
+glPushMatrix();
+glTranslatef(1.4, 0.6, 0);
+if(light1 == 0)
+glutSolidSphere(0.11, 32, 32);
+glPopMatrix();
+
+// Draw the yellow light
+glColor3f(1.0, 1.0, 0.0);
+glPushMatrix();
+glTranslatef(1.4, 0.35, 0);
+if(light2 == 1)
+glutSolidSphere(0.11, 32, 32);
+glPopMatrix();
+
+// Draw the green light
+glColor3f(0.0, 1.0, 0.0);
+glPushMatrix();
+glTranslatef(1.4, 0.1, 0);
+if(light3 == 2)
+glutSolidSphere(0.11, 32, 32);
+glPopMatrix();
+
+// Draw the pole2
+glColor3f(0.0, 0.0, 0.0);
+glPushMatrix();
+glTranslatef(4.0, -0.15, 0.95);
+glRotatef(90, 1, 0, 0);
+GLUquadricObj* pole2 = gluNewQuadric();
+gluCylinder(pole2, 0.02, 0.02, 0.15, 50, 50);
+gluDeleteQuadric(pole2);
+glPopMatrix();
+
+// Draw the red light
+glColor3f(1.0, 0.0, 0.0);
+glPushMatrix();
+glTranslatef(4.0, 0.6, 0);
+if(light1 == 0)
+glutSolidSphere(0.11, 32, 32);
+glPopMatrix();
+
+// Draw the yellow light
+glColor3f(1.0, 1.0, 0.0);
+glPushMatrix();
+glTranslatef(4.0, 0.35, 0);
+if(light2 == 1)
+glutSolidSphere(0.11, 32, 32);
+glPopMatrix();
+
+// Draw the green light
+glColor3f(0.0, 1.0, 0.0);
+glPushMatrix();
+glTranslatef(4.0, 0.1, 0);
+if(light3 == 2)
+glutSolidSphere(0.11, 32, 32);
+glPopMatrix();
+
+
+glEnd();
+
+glFlush();
+}
+
+void timer(int) {
+glutPostRedisplay();
+glutTimerFunc(1000/60, timer, 0);
+
+// Update car position
+if (posX1 > 200) {
+posX1 = 200;
+}
+posX1 += 1;
+
+// Update Light
+if (posX1 % 10 == 0) {
+light1++;
+if (light1 > 2) {
+light1 = 0;
+}
+light2++;
+if (light2 > 2) {
+light2 = 0;
+}
+light3++;
+if (light3 > 2) {
+light3 = 0;
+}
+}
+}
+
+int main(int argc, char** argv) {
+glutInit(&argc, argv);
+glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+glutInitWindowSize(900, 450);
+glutInitWindowPosition(150, 150);
+glutCreateWindow("Moving Car");
+glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+glMatrixMode(GL_PROJECTION);
+glLoadIdentity();
+gluOrtho2D(-1.8, 8.0, -0.45, 6.0);
+glutDisplayFunc(display);
+glutTimerFunc(0, timer, 0);
+glutMainLoop();
+return 0;
+}
